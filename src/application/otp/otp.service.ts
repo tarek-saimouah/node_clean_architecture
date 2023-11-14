@@ -1,15 +1,8 @@
-export class OtpService {
-  private static INSTANCE: OtpService | null = null
+import { injectable } from 'inversify'
 
+@injectable()
+export default class OtpService {
   constructor() {}
-
-  static getInstance() {
-    if (!this.INSTANCE) {
-      this.INSTANCE = new OtpService()
-    }
-
-    return this.INSTANCE
-  }
 
   async sendVerificationMessage(
     phoneNumber: string,

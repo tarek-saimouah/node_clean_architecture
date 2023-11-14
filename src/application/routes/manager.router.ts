@@ -1,9 +1,15 @@
 import { Router } from 'express'
-import Controller from '../controllers/manager.controller'
 import Validator from '../middlewares/validators/manager.validation'
 import GeneralValidator from '../middlewares/validators/general.validation'
 import verifyToken from '../middlewares/verifyToken'
 import AdminRoles from '../middlewares/roles/adminRoles'
+import ManagerController from '../controllers/manager.controller'
+import { Types } from '../../di/types'
+import { container } from '../../di/container'
+
+const controller: ManagerController = container.get<ManagerController>(
+  Types.ManagerController
+)
 
 const router = Router()
 
@@ -13,13 +19,13 @@ router
     verifyToken,
     AdminRoles.managerAuth,
     Validator.createManager,
-    Controller.createManager
+    controller.createManager
   )
   .get(
     verifyToken,
     AdminRoles.directorAuth,
     Validator.getManagers,
-    Controller.findAllManagers
+    controller.findAllManagers
   )
 
 router
@@ -28,19 +34,19 @@ router
     verifyToken,
     AdminRoles.directorAuth,
     GeneralValidator.idParam,
-    Controller.getManager
+    controller.getManager
   )
   .delete(
     verifyToken,
     AdminRoles.managerAuth,
     GeneralValidator.idParam,
-    Controller.deleteManagerById
+    controller.deleteManagerById
   )
   .patch(
     verifyToken,
     AdminRoles.managerAuth,
     Validator.updateManager,
-    Controller.updateManager
+    controller.updateManager
   )
 
 export default router

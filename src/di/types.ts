@@ -12,4 +12,12 @@ export const Types = {
   IUserRepo: Symbol.for('IUserRepo'),
   // cache
   ICacheRepo: Symbol.for('ICacheRepo'),
+
+  // services
+  OtpService: Symbol.for('OtpService'),
+
+  // controllers
+  AuthController: Symbol.for('AuthController'),
+  UserController: Symbol.for('UserController'),
+  ManagerController: Symbol.for('ManagerController'),
 }

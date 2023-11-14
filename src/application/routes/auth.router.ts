@@ -1,23 +1,29 @@
 import { Router } from 'express'
-import Controller from '../controllers/auth.controller'
+import { container } from '../../di/container'
+import { Types } from '../../di/types'
+import AuthController from '../controllers/auth.controller'
 import AuthValidator from '../middlewares/validators/auth.validation'
+
+const controller: AuthController = container.get<AuthController>(
+  Types.AuthController
+)
 
 const router = Router()
 
 router
   .route('/user/sign-up')
-  .post(AuthValidator.userSignup, Controller.signupUser)
+  .post(AuthValidator.userSignup, controller.signupUser)
 
 router
   .route('/user/sign-in')
-  .post(AuthValidator.userLogin, Controller.loginUser)
+  .post(AuthValidator.userLogin, controller.loginUser)
 
 router
   .route('/forgot-password')
-  .patch(AuthValidator.forgotPassword, Controller.forgotPassword)
+  .patch(AuthValidator.forgotPassword, controller.forgotPassword)
 
 router
   .route('/manager/sign-in')
-  .post(AuthValidator.managerLogin, Controller.loginManager)
+  .post(AuthValidator.managerLogin, controller.loginManager)
 
 export default router

@@ -1,10 +1,16 @@
 import { Router } from 'express'
-import Controller from '../controllers/user.controller'
 import Validator from '../middlewares/validators/user.validation'
 import AuthValidator from '../middlewares/validators/auth.validation'
 import GeneralValidator from '../middlewares/validators/general.validation'
 import verifyToken from '../middlewares/verifyToken'
 import AdminRoles from '../middlewares/roles/adminRoles'
+import UserController from '../controllers/user.controller'
+import { Types } from '../../di/types'
+import { container } from '../../di/container'
+
+const controller: UserController = container.get<UserController>(
+  Types.UserController
+)
 
 const router = Router()
 
@@ -14,16 +20,16 @@ router
     verifyToken,
     AdminRoles.directorAuth,
     Validator.getUsers,
-    Controller.findAllUsers
+    controller.findAllUsers
   )
 
 router
   .route('/resend-code')
-  .patch(Validator.resendOtpCode, Controller.resendOtpCode)
+  .patch(Validator.resendOtpCode, controller.resendOtpCode)
 
 router
   .route('/account')
-  .delete(verifyToken, AuthValidator.userLogin, Controller.deleteUserAccount)
+  .delete(verifyToken, AuthValidator.userLogin, controller.deleteUserAccount)
 
 router
   .route('/:id')
@@ -31,31 +37,31 @@ router
     verifyToken,
     AdminRoles.directorAuth,
     GeneralValidator.idParam,
-    Controller.getUser
+    controller.getUser
   )
   .delete(
     verifyToken,
     AdminRoles.managerAuth,
     GeneralValidator.idParam,
-    Controller.deleteUserById
+    controller.deleteUserById
   )
   .patch(
     verifyToken,
     AdminRoles.directorAuth,
     Validator.updateUser,
-    Controller.updateUser
+    controller.updateUser
   )
 
 router
   .route('/:id/verify-account')
-  .patch(Validator.verifyAccount, Controller.verifyAccount)
+  .patch(Validator.verifyAccount, controller.verifyAccount)
 
 router
   .route('/:id/profile')
-  .patch(verifyToken, Validator.updateUserProfile, Controller.updateUserProfile)
+  .patch(verifyToken, Validator.updateUserProfile, controller.updateUserProfile)
 
 router
   .route('/:id/reset-password')
-  .patch(Validator.resetPassword, Controller.resetPassword)
+  .patch(Validator.resetPassword, controller.resetPassword)
 
 export default router
