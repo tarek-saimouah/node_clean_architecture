@@ -1,0 +1,8 @@
+{
+  "execMap": {
+    "ts": "ts-node --files"
+  },
+  "ignore": [
+    "README.md"
+  ]
+}
