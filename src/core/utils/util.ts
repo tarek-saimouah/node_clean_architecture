@@ -55,7 +55,7 @@ export const generateOtpCode = () => {
     randomCode = randomCode.padStart(5, '1')
   }
 
-  return '11111' //randomCode
+  return randomCode
 }
 
 export const computeLimitAndOffset = (page: number, size: number = 50) => {
