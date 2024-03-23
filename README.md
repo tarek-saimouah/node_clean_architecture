@@ -1,5 +1,9 @@
 # NODE.JS CLEAN ARCHITECTURE SAMPLE API
 
+This project is presented for an article I wrote on <strong>Medium</strong>, providing a tutorial about a simplified example of clean architectre using Node.js, Express, Mongodb, Redis.<br/>
+
+- [Full article on Medium](https://medium.com/@tareksaimouah/node-js-clean-architecture-simplified-example-b9f9b4d65ba5)
+
 Node.js REST API clean architecture sample project documentation.
 
 ## Tech Stack
